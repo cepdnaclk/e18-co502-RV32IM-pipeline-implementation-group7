@@ -2,7 +2,7 @@
 # Please refer above link to know the available configurations
 
 title: ""
-remote_theme: just-the-docs
+theme: just-the-docs
 description: ""
 markdown: kramdown
 
