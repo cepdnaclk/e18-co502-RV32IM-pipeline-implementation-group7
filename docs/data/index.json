@@ -1,25 +1,25 @@
 {
     "team": [
         {
-            "name": "Dhananjaya W. M. T.",
+            "name": "Tharindu Dhananjaya",
             "email": "e18073@eng.pdn.ac.lk",
             "eNumber": "E/18/073"
         },
         {
-            "name": "Manahara H. K.",
+            "name": "Kushan Manahara",
             "email": "e18214@eng.pdn.ac.lk",
             "eNumber": "E/18/214"
         }
     ],
     "supervisors": [
         {
-            "name": "Dr. Supervisor 1",
-            "email": "email@eng.pdn.ac.lk"
+            "name": "Dr. Isuru Nawinne",
+            "email": "isurunawinne@eng.pdn.ac.lk"
         },
         {
-            "name": "Supervisor 2",
-            "email": "email@eng.pdn.ac.lk"
+            "name": "Dr. Mahanama Wickramasinghe",
+            "email": "mahanamaw@eng.pdn.ac.lk"
         }
     ],
-    "tags": []
+    "tags": ["RV32IM", "RISC-V", "Computer Architecture", "Verilog"]
 }
