@@ -14,7 +14,7 @@ module RV32IM_ALU (DATA1, DATA2, RESULT, SELECT);
     reg [31:0] RESULT;
 
 
-    // Declare 16 INNER_BUSnal wire buses for INNER_BUSnal operations
+    // Declare 18 inner 32 wire buses for internal operations
     wire [31:0] INNER_BUS_ADD, 
                 INNER_BUS_SUB,
                 INNER_BUS_AND, 
@@ -29,10 +29,12 @@ module RV32IM_ALU (DATA1, DATA2, RESULT, SELECT);
                 INNER_BUS_SRA,
                 INNER_BUS_SLT,
                 INNER_BUS_SLTU,
-                INNER_BUS_DIV, 
+                INNER_BUS_DIV,
+                INNER_BUS_DIVU, 
                 INNER_BUS_REM, 
                 INNER_BUS_REMU;
 
+    // Declare 1 inner 64 wire buses for internal operations
     wire [63:0] INNER_BUS_MULH;
 
     /*
