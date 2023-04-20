@@ -1,3 +1,7 @@
+/*
+    Arithmatic Logic Unit for RV32IM processor
+*/
+
 module RV32IM_ALU (DATA1, DATA2, RESULT, SELECT);
 
     // Declare inputs
@@ -15,10 +19,9 @@ module RV32IM_ALU (DATA1, DATA2, RESULT, SELECT);
                 INNER_BUS_SUB,
                 INNER_BUS_AND, 
                 INNER_BUS_OR, 
-                INNER_BUS_FWD;
+                INNER_BUS_FWD,
                 INNER_BUS_XOR, 
                 INNER_BUS_MUL, 
-                INNER_BUS_MULH, 
                 INNER_BUS_MULHSU, 
                 INNER_BUS_MULHU, 
                 INNER_BUS_SLL, 
