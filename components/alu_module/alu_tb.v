@@ -1,14 +1,10 @@
+
 /*
     Testbench for RV32IM_ALU module
 */
-
-`include "./alu.v"
+`include "alu.v"
 
 module alu_tb;
-
-    // Declare clock and reset signals
-    reg clk;
-    reg rst_n;
 
     // Declare inputs
     reg [31:0] DATA1, DATA2;  // data inputs
@@ -16,87 +12,53 @@ module alu_tb;
 
     // Declare output
     wire [31:0] RESULT;
-    // reg [31:0] RESULT;
 
     // Instantiate the module under test
     alu myalu(DATA1, DATA2, RESULT, SELECT);
-    
-    // Create clock signal with 50% duty cycle
-    // always #5 clk = ~clk;
 
+    // Define task for test case
+    task run_test;
+        input [31:0] expected_result;
+        input [5:0] opcode;
+        input [31:0] data1, data2;
 
-    // Initialize inputs and reset signal
-    initial begin
-        $dumpfile("alu.vcd");
-        clk = 0;
-        rst_n = 0;
-        DATA1 = 0;
-        DATA2 = 0;
-        SELECT = 0;
-        #10 rst_n = 1;
+        reg [3:0] opname;
+        localparam UNKNOWN_OPCODE = 5'd32;
 
-        #5;
-        DATA1 = 10;
-        DATA2 = 5;
-        SELECT = 5'b00000;
-        #10;
-        if (RESULT !== 15) $error("Test case 1 failed");
-        else $display("Test case 1 passed");
-
-
-        #5;
-        DATA1 = 10;
-        DATA2 = 5;
-        SELECT = 5'b00010;
-        #10;
-        if (RESULT !== 5) $error("Test case 2 failed");
-        else $display("Test case 2 passed");
-
-        #5;
-        DATA1 = 10;
-        DATA2 = 2;
-        SELECT = 5'b00100;
-        #10;
-        if (RESULT !== 40) $error("Test case 3 failed");
-        else $display("Test case 3 passed");
-
-        #5;
-        DATA1 = 5;
-        DATA2 = 10;
-        SELECT = 5'b01000;
-        #10;
-        if (RESULT !== 1) 
+        // Initialize inputs and reset signal
         begin
-            $error("Test case 4 failed");
-            $display(RESULT);
+            #5;
+            DATA1 = data1;         // data 1
+            DATA2 = data2;         // data 2
+            SELECT = opcode;       // opcode select
+            
+            // // Define opcode to opname mapping
+            // string opname_dict[string] = '{ "00000": "ADD", "00010": "SUB", "00100": "AND",
+            //                                 "01000": "OR", "01100": "XOR", "10000": "SLL",
+            //                                 "10100": "SRL" };
+
+            // // Set default opname for unknown opcodes
+            // opname = opname_dict[$sformatf("%05b", opcode)];
+            // if (!opname) opname = opname_dict[$sformatf("%05b", UNKNOWN_OPCODE)];
+
+            #10;
+            // If there an error, display the error message
+            if (RESULT !== expected_result) $error($sformatf("Test case FAILED for opcode %b", opcode));
+
+            // else display the result
+            $display($sformatf("Test case PASSED for opcode %d", opcode));
         end
-        else $display("Test case 4 passed");
+    endtask
 
-        #5;
-        DATA1 = -10;
-        DATA2 = 5;
-        SELECT = 5'b01100;
-        #10;
-        if (RESULT !== 0) $error("Test case 5 failed");
-        else $display("Test case 5 passed");
-
-        #5;
-        DATA1 = 32'h0F0F0F0F;
-        DATA2 = 32'hF0F0F0F0;
-        SELECT = 5'b10000;
-        #10;
-        if (RESULT !== 32'hFFFFFFFF) $error("Test case 6 failed");
-        else $display("Test case 6 passed");
-
-        #5;
-        DATA1 = 32'h12345678;
-        DATA2 = 4;
-        SELECT = 5'b10100;
-        #10;
-        // RESULT = {DATA1[31:DATA2], {DATA2{1'b0}}}; // SRL operation
-        if (RESULT !== 32'h01234567) $error("Test case 7 failed");
-        else $display("Test case 7 passed");
+    // Call task for each test case
+    initial begin
+        run_test(15, 5'b00000, 10, 5);
+        run_test(5, 5'b00010, 10, 5);
+        run_test(40, 5'b00100, 10, 2);
+        run_test(1, 5'b01000, 5, 10);
+        run_test(0, 5'b01100, -10, 5);
+        run_test(32'hFFFFFFFF, 5'b10000, 32'h0F0F0F0F, 32'hF0F0F0F0);
+        run_test(32'h01234567, 5'b10100, 32'h12345678, 4);
     end
-
 
 endmodule
