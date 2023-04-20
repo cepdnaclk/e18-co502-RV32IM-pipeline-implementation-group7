@@ -1,84 +1,102 @@
-module RV32IM_ALU_tb;
+/*
+    Testbench for RV32IM_ALU module
+*/
 
-reg [31:0] op1;
-reg [31:0] op2;
-reg [2:0] funct3;
-reg [6:0] funct7;
-reg [1:0] opcode;
-wire [31:0] result;
-wire zero;
-wire carry;
-wire overflow;
+`include "./alu.v"
 
-RV32IM_ALU dut (
-    .op1(op1),
-    .op2(op2),
-    .funct3(funct3),
-    .funct7(funct7),
-    .opcode(opcode),
-    .result(result),
-    .zero(zero),
-    .carry(carry),
-    .overflow(overflow)
-);
+module alu_tb;
 
-initial begin
-    // Test ADD instruction
-    op1 = 32'h00000001;
-    op2 = 32'h00000002;
-    funct3 = 3'b000;
-    funct7 = 7'b0000000;
-    opcode = 2'b00;
-    #10;
-    if (result !== 32'h00000003 || zero !== 0 || carry !== 0 || overflow !== 0) $display("ADD instruction failed");
+    // Declare clock and reset signals
+    reg clk;
+    reg rst_n;
 
-    // Test SLTI instruction
-    op1 = 32'h00000001;
-    op2 = 32'h00000002;
-    funct3 = 3'b010;
-    funct7 = 7'b0000000;
-    opcode = 2'b01;
-    #10;
-    if (result !== 1 || zero !== 0 || carry !== 0 || overflow !== 0) $display("SLTI instruction failed");
+    // Declare inputs
+    reg [31:0] DATA1, DATA2;  // data inputs
+    reg [4:0] SELECT;         // 5 bit select control signal
 
-    // Test SLTIU instruction
-    op1 = 32'hFFFFFFFF;
-    op2 = 32'h00000001;
-    funct3 = 3'b011;
-    funct7 = 7'b0000000;
-    opcode = 2'b01;
-    #10;
-    if (result !== 0 || zero !== 1 || carry !== 0 || overflow !== 0) $display("SLTIU instruction failed");
+    // Declare output
+    wire [31:0] RESULT;
+    // reg [31:0] RESULT;
 
-    // Test XOR instruction
-    op1 = 32'hAAAAAAAA;
-    op2 = 32'h55555555;
-    funct3 = 3'b100;
-    funct7 = 7'b0000000;
-    opcode = 2'b00;
-    #10;
-    if (result !== 32'hFFFFFFFF || zero !== 0 || carry !== 0 || overflow !== 0) $display("XOR instruction failed");
+    // Instantiate the module under test
+    alu myalu(DATA1, DATA2, RESULT, SELECT);
+    
+    // Create clock signal with 50% duty cycle
+    // always #5 clk = ~clk;
 
-    // Test ORI instruction
-    op1 = 32'hAAAAAAAA;
-    op2 = 32'h0000FFFF;
-    funct3 = 3'b110;
-    funct7 = 7'b0000000;
-    opcode = 2'b01;
-    #10;
-    if (result !== 32'hAAAAAAAA || zero !== 0 || carry !== 0 || overflow !== 0) $display("ORI instruction failed");
 
-    // Test ANDI instruction
-    op1 = 32'hAAAAAAAA;
-    op2 = 32'h0000FFFF;
-    funct3 = 3'b111;
-    funct7 = 7'b0000000;
-    opcode = 2'b01;
-    #10;
-    if (result !== 32'h0000AAAA || zero !== 0 || carry !== 0 || overflow !== 0) $display("ANDI instruction failed");
+    // Initialize inputs and reset signal
+    initial begin
+        $dumpfile("alu.vcd");
+        clk = 0;
+        rst_n = 0;
+        DATA1 = 0;
+        DATA2 = 0;
+        SELECT = 0;
+        #10 rst_n = 1;
 
-    $display("All tests passed");
-    $finish;
-end
+        #5;
+        DATA1 = 10;
+        DATA2 = 5;
+        SELECT = 5'b00000;
+        #10;
+        if (RESULT !== 15) $error("Test case 1 failed");
+        else $display("Test case 1 passed");
+
+
+        #5;
+        DATA1 = 10;
+        DATA2 = 5;
+        SELECT = 5'b00010;
+        #10;
+        if (RESULT !== 5) $error("Test case 2 failed");
+        else $display("Test case 2 passed");
+
+        #5;
+        DATA1 = 10;
+        DATA2 = 2;
+        SELECT = 5'b00100;
+        #10;
+        if (RESULT !== 40) $error("Test case 3 failed");
+        else $display("Test case 3 passed");
+
+        #5;
+        DATA1 = 5;
+        DATA2 = 10;
+        SELECT = 5'b01000;
+        #10;
+        if (RESULT !== 1) 
+        begin
+            $error("Test case 4 failed");
+            $display(RESULT);
+        end
+        else $display("Test case 4 passed");
+
+        #5;
+        DATA1 = -10;
+        DATA2 = 5;
+        SELECT = 5'b01100;
+        #10;
+        if (RESULT !== 0) $error("Test case 5 failed");
+        else $display("Test case 5 passed");
+
+        #5;
+        DATA1 = 32'h0F0F0F0F;
+        DATA2 = 32'hF0F0F0F0;
+        SELECT = 5'b10000;
+        #10;
+        if (RESULT !== 32'hFFFFFFFF) $error("Test case 6 failed");
+        else $display("Test case 6 passed");
+
+        #5;
+        DATA1 = 32'h12345678;
+        DATA2 = 4;
+        SELECT = 5'b10100;
+        #10;
+        // RESULT = {DATA1[31:DATA2], {DATA2{1'b0}}}; // SRL operation
+        if (RESULT !== 32'h01234567) $error("Test case 7 failed");
+        else $display("Test case 7 passed");
+    end
+
 
 endmodule

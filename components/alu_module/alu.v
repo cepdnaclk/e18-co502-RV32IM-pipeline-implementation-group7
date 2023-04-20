@@ -2,7 +2,7 @@
     Arithmatic Logic Unit for RV32IM processor
 */
 
-module RV32IM_ALU (DATA1, DATA2, RESULT, SELECT);
+module alu (DATA1, DATA2, RESULT, SELECT);
 
     // Declare inputs
     input [31:0] DATA1, DATA2;  // data inputs
