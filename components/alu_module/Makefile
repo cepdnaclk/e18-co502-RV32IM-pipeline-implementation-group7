@@ -1,3 +1,3 @@
 run:
-	iverilog -o alu alu.v
-	vvp alu
+	iverilog -o alu_tb alu_tb.v
+	vvp alu_tb
