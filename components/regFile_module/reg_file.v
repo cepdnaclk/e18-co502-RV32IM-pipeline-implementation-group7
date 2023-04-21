@@ -55,12 +55,12 @@ module reg_file(
 		OUT2 = regFile[OUT2ADDRESS];
 	end
 
-	// initial
-	// begin
-	// 	$dumpfile("cpu_wavedata_with_regFile.vcd");
-	// 	for(i = 0; i < 32; i = i + 1)
-	// 	begin
-	// 		$dumpvars(1,regFile[i]);
-	// 	end
-	// end
+	initial
+	begin
+		$dumpfile("cpu_wavedata_with_regFile.vcd");
+		for(i = 0; i < 32; i = i + 1)
+		begin
+			$dumpvars(1,regFile[i]);
+		end
+	end
 endmodule
