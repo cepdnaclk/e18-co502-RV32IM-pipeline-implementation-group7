@@ -1,5 +1,5 @@
 $date
-	Thu Apr 20 11:23:18 2023
+	Fri Apr 21 12:28:28 2023
 $end
 $version
 	Icarus Verilog
@@ -7,101 +7,165 @@ $end
 $timescale
 	1s
 $end
-$scope module reg_file $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ! \regFile[0] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 " \regFile[1] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 # \regFile[2] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 $ \regFile[3] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 % \regFile[4] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 & \regFile[5] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ' \regFile[6] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ( \regFile[7] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ) \regFile[8] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 * \regFile[9] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 + \regFile[10] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 , \regFile[11] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 - \regFile[12] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 . \regFile[13] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 / \regFile[14] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 0 \regFile[15] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 1 \regFile[16] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 2 \regFile[17] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 3 \regFile[18] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 4 \regFile[19] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 5 \regFile[20] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 6 \regFile[21] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 7 \regFile[22] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 8 \regFile[23] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 9 \regFile[24] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 : \regFile[25] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ; \regFile[26] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 < \regFile[27] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 = \regFile[28] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 > \regFile[29] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 ? \regFile[30] [31:0] $end
 $upscope $end
-$scope module reg_file $end
+$upscope $end
+$scope module tb_reg_file $end
+$scope module test_reg_file $end
 $var reg 32 @ \regFile[31] [31:0] $end
+$upscope $end
 $upscope $end
 $enddefinitions $end
 #0
@@ -139,4 +203,4 @@ bx #
 bx "
 bx !
 $end
-#2
+#10

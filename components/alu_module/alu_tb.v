@@ -19,7 +19,7 @@ module alu_tb;
     // Define task for test case
     task run_test;
         input [31:0] expected_result;
-        input [5:0] opcode;
+        input [4:0] opcode;
         input [31:0] data1, data2;
 
         reg [3:0] opname;
@@ -32,21 +32,20 @@ module alu_tb;
             DATA2 = data2;         // data 2
             SELECT = opcode;       // opcode select
             
-            // // Define opcode to opname mapping
-            // string opname_dict[string] = '{ "00000": "ADD", "00010": "SUB", "00100": "AND",
-            //                                 "01000": "OR", "01100": "XOR", "10000": "SLL",
-            //                                 "10100": "SRL" };
-
-            // // Set default opname for unknown opcodes
+            // Define opcode to opname mapping
+            // string opname_dict[string] = '{ "00000": "ADD", "00010": "SUB", "00100": "AND", "01000": "OR", "01100": "XOR", "10000": "SLL","10100": "SRL" };
+            
+            // Set default opname for unknown opcodes
             // opname = opname_dict[$sformatf("%05b", opcode)];
             // if (!opname) opname = opname_dict[$sformatf("%05b", UNKNOWN_OPCODE)];
 
             #10;
             // If there an error, display the error message
-            if (RESULT !== expected_result) $error($sformatf("Test case FAILED for opcode %b", opcode));
+            if (RESULT !== expected_result) $error($sformatf("Test case FAILED for opcode %05b", opcode));
+
 
             // else display the result
-            $display($sformatf("Test case PASSED for opcode %d", opcode));
+            $display($sformatf("Test case PASSED for opcode %b", opcode));
         end
     endtask
 

@@ -1,4 +1,14 @@
-module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET);
+module reg_file(
+					IN, 
+					OUT1, 
+					OUT2, 
+					INADDRESS, 
+					OUT1ADDRESS, 
+					OUT2ADDRESS, 
+					WRITE, 
+					CLK, 
+					RESET
+				);
 
 	// Begin port declaration
 	// Inputs	
@@ -10,7 +20,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 	output reg [31:0] OUT1, OUT2;
 	// End port declaration
 
-	// Declare 8x8 register as vectior
+	// Declare 8x8 register as vector
 	reg [31:0] regFile [0:31];
 
     integer i;
@@ -45,25 +55,12 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 		OUT2 = regFile[OUT2ADDRESS];
 	end
 
-	initial
-	begin
-		$dumpfile("cpu_wavedata_with_regFile.vcd");
-		for(i = 0; i < 32; i = i + 1)
-		begin
-			$dumpvars(1,regFile[i]);
-		end
-	end
-
 	// initial
 	// begin
-	// 	#5
-	// 	$display("\n\t\t\t==================================================================");
-	// 	$display("\t\t\t Change of Register Content Starting from Time #5");
-	// 	$display("\t\t\t==================================================================\n");
-	// 	$display("\t\ttime\tregs0\tregs1\tregs2\tregs3\tregs4\tregs5\tregs6\tregs7");
-	// 	$display("\t\t-------------------------------------------------------------------------------------");
-	// 	$monitor($time, "\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7]);
+	// 	$dumpfile("cpu_wavedata_with_regFile.vcd");
+	// 	for(i = 0; i < 32; i = i + 1)
+	// 	begin
+	// 		$dumpvars(1,regFile[i]);
+	// 	end
 	// end
-
-
 endmodule
