@@ -102,31 +102,58 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign func3_SEl = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b0100011) | (opcode == 7'b0000011) | (opcode == 7'b1100011);
+    assign ALU_OP[4:0] =    ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000000}) ? 5'b00000 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0100000}) ? 5'b00010 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000000}) ? 5'b00100 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000000}) ? 5'b01000 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) ? 5'b01100 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000000}) ? 5'b10000 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000000}) ? 5'b10100 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) ? 5'b10110 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000000}) ? 5'b11000 :
+                            ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000000}) ? 5'b11100 :
+                            ({opcode, funct3} == {7'b0110011, 3'b000}) ? 5'b00001 :
+                            ({opcode, funct3} == {7'b0110011, 3'b001}) ? 5'b00101 :
+                            ({opcode, funct3} == {7'b0110011, 3'b010}) ? 5'b01101 :
+                            ({opcode, funct3} == {7'b0110011, 3'b011}) ? 5'b01001 :
+                            ({opcode, funct3} == {7'b0110011, 3'b100}) ? 5'b10001 :
+                            ({opcode, funct3} == {7'b0110011, 3'b101}) ? 5'b10101 :
+                            ({opcode, funct3} == {7'b0110011, 3'b110}) ? 5'b11001 :
+                            ({opcode, funct3} == {7'b0110011, 3'b111}) ? 5'b11101 :
+                            ({opcode} == {7'b0000011}) ? 5'b00000 : // loads
+                            ({opcode} == {7'b0100011}) ? 5'b00000 : // store type
+                            ({opcode} == {7'b1100011}) ? 5'b00000 : // conditional brnach type
+                            ({opcode} == {7'b0010111}) ? 5'b00000 : // Auipc
+                            ({opcode} == {7'b1101111}) ? 5'b00000 : // JAL
+                            ({opcode} == {7'b1100111}) ? 5'b00000 : // JALR
+                            ({opcode} == {7'b0110111}) ? 5'b11111 : // LUI
+                            ({opcode, funct3} == {7'b0010011, 3'b000}) ? 5'b00000 :
+                            ({opcode, funct3} == {7'b0010011, 3'b010}) ? 5'b01000 :
+                            ({opcode, funct3} == {7'b0010011, 3'b011}) ? 5'b01100 :
+                            ({opcode, funct3} == {7'b0010011, 3'b100}) ? 5'b10000 :
+                            ({opcode, funct3} == {7'b0010011, 3'b110}) ? 5'b11000 :
+                            ({opcode, funct3} == {7'b0010011, 3'b111}) ? 5'b11100 :
+                            ({opcode, funct3, funct7} == {7'b0010011, 3'b001, 7'b0000000}) ? 5'b00100 :
+                            ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0000000}) ? 5'b10100 :
+                            ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) ? 5'b10110 : 5'bxxxxx;
 
-    mux2to1 funct3_mux (funct3, 3'b000, func3_SEl, ALU_OP[2:0]);
 
-    assign ALU_OP[4] = ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) | ({opcode, funct3, funct7} == 
-    {7'b0110011, 3'b000, 7'b0100000}) | ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) | (opcode == 7'b0110111);
-
-    assign ALU_OP[3] = ({opcode, funct7} == 14'b01100110000001) | (opcode == 7'b0110111);
 
 
     /* 
         set Memory write control signal (3 bit control bus).
         Need to low operand 1 singnal in,
-                
-
+                Set signal according to S type
                     instructions
     */
-    assign MEM_WRITE[2] = (opcode == 7'b100011);
+    assign MEM_WRITE[2] = (opcode == 7'b0100011);
     assign MEM_WRITE[1:0] = funct3[1:0];
 
     
     /* 
         set Memory Read control signal (4 bit control bus).
         Need to low operand 1 singnal in,
-            All I-type 
+            All Load-type 
 
                     instructions
     */
@@ -136,7 +163,10 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
     /* 
         set Register file write control signal (4 bit control bus).
         Need to low operand 1 singnal in,
-            All I-type 
+            All Load-type
+            AUIPC
+            JAL
+            JALR
 
                     instructions
     */
