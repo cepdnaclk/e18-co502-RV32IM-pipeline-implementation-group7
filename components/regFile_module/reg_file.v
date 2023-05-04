@@ -32,6 +32,7 @@ module reg_file(
 		if ( RESET == 1 )
 		begin
 
+			#2
 			// Write 0 for all registers
 			for ( i = 0; i < 32; i = i + 1)
 			begin

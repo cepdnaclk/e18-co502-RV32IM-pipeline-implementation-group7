@@ -6,7 +6,7 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
 	// Outputs
     output OP1_SEL, OP2_SEL, REG_WRITE_EN;
-	output [3:0] IMM_SEL;
+	output [2:0] IMM_SEL;
     output [3:0] BR_SEL;
     output [4:0] ALU_OP;
     output [2:0] MEM_WRITE;
@@ -32,24 +32,20 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
         Need to high operand 1 singnal in,
                 AUIPC
                 JAL
-                JALR
-
+                All SB-Type(BEQ, BNE, BLT, BGE, BLTU, BGEU)
+                
                     instructions
     */
-    assign OP1_SEL = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100111) | (opcode == 7'b1100011);
+    assign OP1_SEL = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100011);
 
 
     /* 
         set operand 2 singnal.
-        Need to high operand 1 singnal in,
-                All I-type (LB. LH, LW, LBU, LHU),
-                All immediate,
-                AUIPC,
+        Need to high operand 2 singnal in,
+                All I-type (16 Instructions),
+                U-Type (AUIPC,LUI),
                 All S-type (SB, SH, SW),
-                LUI,
-                JAL,
-                JALR,
-                All Branch instrunctions(BEQ, BNE, BLT, BGE, BLTU, BGEU)
+                All SB-Type(BEQ, BNE, BLT, BGE, BLTU, BGEU)
 
                     instructions
     */
@@ -57,42 +53,41 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
     /* 
         set register file write enable signal.
-        Need to low operand 1 singnal in,
+        Need to high REG_WRITE_EN singnal except following instructions,
                 All S-type (SB, SH, SW),
-
-                    instructions
+                All SB-Type(BEQ, BNE, BLT, BGE, BLTU, BGEU)
     */
-    assign REG_WRITE_EN = (opcode == 7'b0100011);
+    assign REG_WRITE_EN =  ~((opcode == 7'b0100011) | (opcode == 7'b1100011)) ;    
 
 
     /* 
-        set Immediate control signal (4 bit control bus).
-        Need to low operand 1 singnal in,
+        set Immediate control signal (3 bit control bus).
 
-                    instructions
+        Type     IMM_SEL[2:0]
+
+        I-type      000
+        S-type      001
+        SB-type     010
+        U-type      011
+        UJ-type     100
+
     */
-    assign IMM_SEL[3] = ({opcode, funct3} == {7'b0000011, 3'b100}) | 
-                                 ({opcode, funct3} == {7'b0000011, 3'b101}) | 
-                                 ({opcode, funct3} == {7'b0010011, 3'b011}) | 
-                                 ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) | 
-                                 ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000001}) | 
-                                 ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000001}) | 
-                                 ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000001});
 
-    assign IMM_SEL[2:0] =  (opcode == 7'b0000011) ? 3'b010 : 
-                                    (opcode == 7'b0010111) ? 3'b000 :
-                                    (opcode == 7'b0100011) ? 3'b100 : 
-                                    (opcode == 7'b0110111) ? 3'b000 : 
-                                    (opcode == 7'b1101111) ? 3'b001 : 
-                                    (opcode == 7'b1100111) ? 3'b010 : 
-                                    (opcode == 7'b1100011) ? 3'b011 : 
-                                    ({opcode, funct3} == {7'b0010011, 3'bx01}) ? 3'b101 : 
-                                    (opcode == 7'b0010011) ? 3'b010 : 3'bxxx;
+    assign IMM_SEL[2:0] =   (opcode == 7'b0010011) ? 3'b000 : // I-type (ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI)
+                            (opcode == 7'b0000011) ? 3'b000 : // I-type (LB, LH, LW, LBU, LHU)
+                            (opcode == 7'b1100111) ? 3'b000 : // I-type (JALR)
+                            (opcode == 7'b0100011) ? 3'b001 : // S-type (SB, SH, SW)
+                            (opcode == 7'b1100011) ? 3'b010 : // SB-type (BEQ, BNE, BLT, BGE, BLTU, BGEU)
+                            (opcode == 7'b0110111) ? 3'b011 : // U-type (LUI)
+                            (opcode == 7'b0010111) ? 3'b011 : // U-type (AUIPC)
+                            (opcode == 7'b1101111) ? 3'b100 : 3'bxxx ; // UJ-type (JAL)
 
 
     /* 
         set Branch control signal (4 bit control bus).
-        Need to low operand 1 singnal in,
+        BR_SEL[3] is high when instruction is JAL, JALR or SB-type
+        BR_SEL[2:0] is 3'b010 if instruction is JAL or JALR
+        otherwise funct3 vaue
 
                     instructions
     */

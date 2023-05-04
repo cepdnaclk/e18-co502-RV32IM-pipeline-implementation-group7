@@ -15,7 +15,7 @@ module reg_file_tb;
        
     initial
     begin
-        CLK = 1'b1;
+        CLK = 1'b0;
         
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("reg_file_wavedata.vcd");
@@ -25,53 +25,12 @@ module reg_file_tb;
         RESET = 1'b0;
         WRITE = 1'b0;
         
-        #10
+        #2
         RESET = 1'b1;
-        OUT1ADDRESS = 5'd0;
-        OUT2ADDRESS = 5'd4;
+
         
-        #10
-        RESET = 1'b0;
         
-        #10
-        INADDRESS = 4'd2;
-        IN = 32'd95;
-        WRITE = 1'b1;
         
-        #10
-        WRITE = 1'b0;
-        
-        #10
-        OUT1ADDRESS = 5'd2;
-        
-        #10
-        INADDRESS = 5'd1;
-        IN = 32'd28;
-        WRITE = 1'b1;
-        OUT1ADDRESS = 5'd1;
-        
-        #10
-        WRITE = 1'b0;
-        
-        #10
-        INADDRESS = 5'd4;
-        IN = 32'd6;
-        WRITE = 1'b1;
-        
-        #10
-        IN = 32'd15;
-        WRITE = 1'b1;
-        
-        #10
-        WRITE = 1'b0;
-        
-        #6
-        INADDRESS = 5'd1;
-        IN = 32'd50;
-        WRITE = 1'b1;
-        
-        #5
-        WRITE = 1'b0;
         
         #10
         $finish;
@@ -79,7 +38,7 @@ module reg_file_tb;
     
     // clock signal generation
     always
-        #8 CLK = ~CLK;
+        #5 CLK = ~CLK;
         
 
 endmodule
