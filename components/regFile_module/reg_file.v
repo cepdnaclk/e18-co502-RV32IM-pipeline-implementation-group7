@@ -17,6 +17,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
     assign #2 OUT1 = REGISTER[OUT1ADDRESS];
     assign #2 OUT2 = REGISTER[OUT2ADDRESS];
 
+<<<<<<< HEAD
     //resetting the registers
     always @ (*) begin
         //if the reset = 1, then all the registers are set to 0
@@ -86,6 +87,15 @@ endmodule
 // 		// 		regFile[i] = 32'b0;
 // 		// 	end
 // 		// end
+=======
+			#2
+			// Write 0 for all registers
+			for ( i = 0; i < 32; i = i + 1)
+			begin
+				regFile[i] = 32'b0;
+			end
+		end
+>>>>>>> e57e5ab14690bca5a698533f7eabe64fe8b3ea2a
 		
 // 		// If the WRITE signal is high and RESET signal is low, write the given input data(IN) into related register(the register given by INADDRESS)
 // 		// else if ( WRITE == 1)
@@ -104,6 +114,7 @@ endmodule
 // 		if ( RESET )
 // 		begin
 
+<<<<<<< HEAD
 // 			// Write 0 for all registers
 // 			#2 for ( i = 0; i < 32; i = i + 1)
 // 			begin
@@ -195,3 +206,14 @@ endmodule
 // 	// 	end
 // 	// end
 // endmodule
+=======
+	initial
+	begin
+		$dumpfile("cpu_wavedata_with_regFile.vcd");
+		for(i = 0; i < 32; i = i + 1)
+		begin
+			$dumpvars(1,regFile[i]);
+		end
+	end
+endmodule
+>>>>>>> e57e5ab14690bca5a698533f7eabe64fe8b3ea2a
