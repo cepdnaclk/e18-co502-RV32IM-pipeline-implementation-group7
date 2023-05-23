@@ -1,0 +1,79 @@
+$date
+	Tue May 23 17:33:24 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module control_unit_tb $end
+$var wire 2 ! REG_WRITE_SEL [1:0] $end
+$var wire 1 " REG_WRITE_EN $end
+$var wire 1 # OP2_SEL $end
+$var wire 1 $ OP1_SEL $end
+$var wire 3 % MEM_WRITE [2:0] $end
+$var wire 4 & MEM_READ [3:0] $end
+$var wire 3 ' IMM_SEL [2:0] $end
+$var wire 4 ( BR_SEL [3:0] $end
+$var wire 5 ) ALU_OP [4:0] $end
+$var reg 1 * CLK $end
+$var reg 32 + INSTRUCTION [31:0] $end
+$scope module mycontrol_unit $end
+$var wire 32 , INSTRUCTION [31:0] $end
+$var wire 1 $ OP1_SEL $end
+$var wire 1 # OP2_SEL $end
+$var wire 1 " REG_WRITE_EN $end
+$var wire 1 - RESET $end
+$var wire 7 . opcode [6:0] $end
+$var wire 7 / funct7 [6:0] $end
+$var wire 3 0 funct3 [2:0] $end
+$var wire 2 1 REG_WRITE_SEL [1:0] $end
+$var wire 3 2 MEM_WRITE [2:0] $end
+$var wire 4 3 MEM_READ [3:0] $end
+$var wire 3 4 IMM_SEL [2:0] $end
+$var wire 4 5 BR_SEL [3:0] $end
+$var wire 5 6 ALU_OP [4:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+bx 1
+b0 0
+b0 /
+b110011 .
+z-
+b1000001000000000110011 ,
+b1000001000000000110011 +
+1*
+bx )
+bx (
+bx '
+bx &
+bx %
+x$
+x#
+x"
+bx !
+$end
+#3
+0#
+0$
+1"
+b1 !
+b1 1
+b0 (
+b0 5
+b0 %
+b0 2
+b0 &
+b0 3
+b0 )
+b0 6
+#4

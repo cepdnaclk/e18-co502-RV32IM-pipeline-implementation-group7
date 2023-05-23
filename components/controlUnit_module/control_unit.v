@@ -36,7 +36,7 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
                 
                     instructions
     */
-    assign OP1_SEL = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100011);
+    assign #3 OP1_SEL = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100011);
 
 
     /* 
@@ -49,7 +49,7 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign OP2_SEL = (opcode == 7'b0000011) | (opcode == 7'b0010011) | (opcode == 7'b0010111) | (opcode == 7'b0100011) | (opcode == 7'b0110111) | (opcode == 7'b1100111) | (opcode == 7'b1101111) | (opcode == 7'b1100011) ;
+    assign #3 OP2_SEL = (opcode == 7'b0000011) | (opcode == 7'b0010011) | (opcode == 7'b0010111) | (opcode == 7'b0100011) | (opcode == 7'b0110111) | (opcode == 7'b1100111) | (opcode == 7'b1101111) | (opcode == 7'b1100011) ;
 
     /* 
         set register file write enable signal.
@@ -57,7 +57,7 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
                 All S-type (SB, SH, SW),
                 All SB-Type(BEQ, BNE, BLT, BGE, BLTU, BGEU)
     */
-    assign REG_WRITE_EN =  ~((opcode == 7'b0100011) | (opcode == 7'b1100011)) ;    
+    assign #3 REG_WRITE_EN =  ~((opcode == 7'b0100011) | (opcode == 7'b1100011)) ;    
 
 
     /* 
@@ -73,7 +73,7 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
     */
 
-    assign IMM_SEL[2:0] =   (opcode == 7'b0010011) ? 3'b000 : // I-type (ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI)
+    assign #3 IMM_SEL[2:0] =   (opcode == 7'b0010011) ? 3'b000 : // I-type (ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI)
                             (opcode == 7'b0000011) ? 3'b000 : // I-type (LB, LH, LW, LBU, LHU)
                             (opcode == 7'b1100111) ? 3'b000 : // I-type (JALR)
                             (opcode == 7'b0100011) ? 3'b001 : // S-type (SB, SH, SW)
@@ -91,8 +91,8 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign BR_SEL[3] = (opcode == 7'b1100111) | (opcode == 7'b1101111) |  (opcode == 7'b1100011);
-    assign BR_SEL[2:0] = ((opcode == 7'b1100111) || (opcode == 7'b1101111))?3'b010:funct3;
+    assign #3 BR_SEL[3] = (opcode == 7'b1100111) | (opcode == 7'b1101111) |  (opcode == 7'b1100011);
+    assign #3 BR_SEL[2:0] = ((opcode == 7'b1100111) || (opcode == 7'b1101111))?3'b010:funct3;
 
 
     /* 
@@ -102,40 +102,40 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign ALU_OP[4:0] =    ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000000}) ? 5'b00000 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0100000}) ? 5'b00010 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000000}) ? 5'b00100 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000000}) ? 5'b01000 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) ? 5'b01100 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000000}) ? 5'b10000 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000000}) ? 5'b10100 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) ? 5'b10110 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000000}) ? 5'b11000 :
-                            ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000000}) ? 5'b11100 :
-                            ({opcode, funct3} == {7'b0110011, 3'b000}) ? 5'b00001 :
-                            ({opcode, funct3} == {7'b0110011, 3'b001}) ? 5'b00101 :
-                            ({opcode, funct3} == {7'b0110011, 3'b010}) ? 5'b01101 :
-                            ({opcode, funct3} == {7'b0110011, 3'b011}) ? 5'b01001 :
-                            ({opcode, funct3} == {7'b0110011, 3'b100}) ? 5'b10001 :
-                            ({opcode, funct3} == {7'b0110011, 3'b101}) ? 5'b10101 :
-                            ({opcode, funct3} == {7'b0110011, 3'b110}) ? 5'b11001 :
-                            ({opcode, funct3} == {7'b0110011, 3'b111}) ? 5'b11101 :
-                            ({opcode} == {7'b0000011}) ? 5'b00000 : // loads
-                            ({opcode} == {7'b0100011}) ? 5'b00000 : // store type
-                            ({opcode} == {7'b1100011}) ? 5'b00000 : // conditional brnach type
-                            ({opcode} == {7'b0010111}) ? 5'b00000 : // Auipc
-                            ({opcode} == {7'b1101111}) ? 5'b00000 : // JAL
-                            ({opcode} == {7'b1100111}) ? 5'b00000 : // JALR
-                            ({opcode} == {7'b0110111}) ? 5'b11111 : // LUI
-                            ({opcode, funct3} == {7'b0010011, 3'b000}) ? 5'b00000 :
-                            ({opcode, funct3} == {7'b0010011, 3'b010}) ? 5'b01000 :
-                            ({opcode, funct3} == {7'b0010011, 3'b011}) ? 5'b01100 :
-                            ({opcode, funct3} == {7'b0010011, 3'b100}) ? 5'b10000 :
-                            ({opcode, funct3} == {7'b0010011, 3'b110}) ? 5'b11000 :
-                            ({opcode, funct3} == {7'b0010011, 3'b111}) ? 5'b11100 :
-                            ({opcode, funct3, funct7} == {7'b0010011, 3'b001, 7'b0000000}) ? 5'b00100 :
-                            ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0000000}) ? 5'b10100 :
-                            ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) ? 5'b10110 : 5'bxxxxx;
+    assign #3 ALU_OP[4:0] =     ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000000}) ? 5'b00000 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0100000}) ? 5'b00010 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000000}) ? 5'b00100 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000000}) ? 5'b01000 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) ? 5'b01100 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000000}) ? 5'b10000 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000000}) ? 5'b10100 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) ? 5'b10110 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000000}) ? 5'b11000 :
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000000}) ? 5'b11100 :
+                                ({opcode, funct3} == {7'b0110011, 3'b000}) ? 5'b00001 :
+                                ({opcode, funct3} == {7'b0110011, 3'b001}) ? 5'b00101 :
+                                ({opcode, funct3} == {7'b0110011, 3'b010}) ? 5'b01101 :
+                                ({opcode, funct3} == {7'b0110011, 3'b011}) ? 5'b01001 :
+                                ({opcode, funct3} == {7'b0110011, 3'b100}) ? 5'b10001 :
+                                ({opcode, funct3} == {7'b0110011, 3'b101}) ? 5'b10101 :
+                                ({opcode, funct3} == {7'b0110011, 3'b110}) ? 5'b11001 :
+                                ({opcode, funct3} == {7'b0110011, 3'b111}) ? 5'b11101 :
+                                ({opcode} == {7'b0000011}) ? 5'b00000 : // loads
+                                ({opcode} == {7'b0100011}) ? 5'b00000 : // store type
+                                ({opcode} == {7'b1100011}) ? 5'b00000 : // conditional brnach type
+                                ({opcode} == {7'b0010111}) ? 5'b00000 : // Auipc
+                                ({opcode} == {7'b1101111}) ? 5'b00000 : // JAL
+                                ({opcode} == {7'b1100111}) ? 5'b00000 : // JALR
+                                ({opcode} == {7'b0110111}) ? 5'b11111 : // LUI
+                                ({opcode, funct3} == {7'b0010011, 3'b000}) ? 5'b00000 :
+                                ({opcode, funct3} == {7'b0010011, 3'b010}) ? 5'b01000 :
+                                ({opcode, funct3} == {7'b0010011, 3'b011}) ? 5'b01100 :
+                                ({opcode, funct3} == {7'b0010011, 3'b100}) ? 5'b10000 :
+                                ({opcode, funct3} == {7'b0010011, 3'b110}) ? 5'b11000 :
+                                ({opcode, funct3} == {7'b0010011, 3'b111}) ? 5'b11100 :
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b001, 7'b0000000}) ? 5'b00100 :
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0000000}) ? 5'b10100 :
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) ? 5'b10110 : 5'bxxxxx;
 
 
 
@@ -146,8 +146,8 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
                 Set signal according to S type
                     instructions
     */
-    assign MEM_WRITE[2] = (opcode == 7'b0100011);
-    assign MEM_WRITE[1:0] = funct3[1:0];
+    assign #3 MEM_WRITE[2] = (opcode == 7'b0100011);
+    assign #3 MEM_WRITE[1:0] = funct3[1:0];
 
     
     /* 
@@ -157,8 +157,8 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign MEM_READ[3] = (opcode == 7'b0000011);
-    assign MEM_READ[2:0] = funct3;
+    assign #3 MEM_READ[3] = (opcode == 7'b0000011);
+    assign #3 MEM_READ[2:0] = funct3;
 
     /* 
         set Register file write control signal (4 bit control bus).
@@ -170,32 +170,9 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign REG_WRITE_SEL[0] = ~(opcode == 7'b0000011);
-    assign REG_WRITE_SEL[1] = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100111);
+    assign #3 REG_WRITE_SEL[0] = ~(opcode == 7'b0000011);
+    assign #3 REG_WRITE_SEL[1] = (opcode == 7'b0010111) | (opcode == 7'b1101111) | (opcode == 7'b1100111);
 
 
-
-endmodule
-
-module mux2to1(DATA1, DATA2, SELECT, RESULT);
-
-    // Port declaration starts
-    input [2:0] DATA1, DATA2;
-    input SELECT;
-
-    output reg [2:0] RESULT;
-    // Port declaration ends
-
-    always @(*)
-    begin
-        if( SELECT == 1'b1)
-        begin
-        RESULT = DATA1;
-        end
-        else
-        begin
-            RESULT = DATA2;
-        end
-    end
 
 endmodule
