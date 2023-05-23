@@ -78,7 +78,7 @@ module alu (DATA1, DATA2, RESULT, SELECT);
     always @(*)
     begin
         case(SELECT)
-            5'b11111: RESULT = INNER_BUS_FORWARD,
+            5'b11111: RESULT = INNER_BUS_FORWARD;
             5'b00000: RESULT = INNER_BUS_ADD; 
             5'b00010: RESULT = INNER_BUS_SUB; 
             5'b00100: RESULT = INNER_BUS_SLL; 
