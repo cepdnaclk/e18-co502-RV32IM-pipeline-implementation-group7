@@ -15,7 +15,8 @@ module alu (DATA1, DATA2, RESULT, SELECT);
 
 
     // Declare 18 inner 32 wire buses for internal operations
-    wire [31:0] INNER_BUS_ADD, 
+    wire [31:0] INNER_BUS_FORWARD,
+                INNER_BUS_ADD,
                 INNER_BUS_SUB,
                 INNER_BUS_AND, 
                 INNER_BUS_OR, 
@@ -40,45 +41,44 @@ module alu (DATA1, DATA2, RESULT, SELECT);
     /*
         ALU calculations
         Behavioural modeling is used in programming
-
-        TODOs:
-            Need to assign delay times
     */
 
     // RV32I alu instructions
 
     // basic calculations
-    assign INNER_BUS_ADD = DATA1 + DATA2;
-    assign INNER_BUS_SUB = DATA1 - DATA2;
-    assign INNER_BUS_AND =  DATA1 & DATA2;
-    assign INNER_BUS_OR =  DATA1 | DATA2;
-    assign INNER_BUS_FWD = DATA2;
-    assign INNER_BUS_XOR =  DATA1 ^ DATA2;
+    assign #1 INNER_BUS_FORWARD = DATA2;
+    assign #2 INNER_BUS_ADD = DATA1 + DATA2;
+    assign #2 INNER_BUS_SUB = DATA1 - DATA2;
+    assign #2 INNER_BUS_AND =  DATA1 & DATA2;
+    assign #2 INNER_BUS_OR =  DATA1 | DATA2;
+    assign #2 INNER_BUS_FWD = DATA2;
+    assign #2 INNER_BUS_XOR =  DATA1 ^ DATA2;
 
     // Shift instructions
-    assign INNER_BUS_SLL = DATA1 << DATA2;
-    assign INNER_BUS_SRL = DATA1 >> DATA2;
-    assign INNER_BUS_SRA = DATA1 >>> DATA2;
+    assign #3 INNER_BUS_SLL = DATA1 << DATA2;
+    assign #3 INNER_BUS_SRL = DATA1 >> DATA2;
+    assign #3 INNER_BUS_SRA = DATA1 >>> DATA2;
 
     // set less than instructions
-    assign INNER_BUS_SLT = ($signed(DATA1) < $signed(DATA2)) ? 1'b1 : 1'b0;
-    assign INNER_BUS_SLTU = ($unsigned(DATA1) < $unsigned(DATA2)) ? 1'b1 : 1'b0;
+    assign #2 INNER_BUS_SLT = ($signed(DATA1) < $signed(DATA2)) ? 1'b1 : 1'b0;
+    assign #2 INNER_BUS_SLTU = ($unsigned(DATA1) < $unsigned(DATA2)) ? 1'b1 : 1'b0;
 
     // Multiply instructions
-    assign INNER_BUS_MUL = DATA1 * DATA2;
-    assign INNER_BUS_MULH = DATA1 * DATA2;
-    assign INNER_BUS_MULHSU = $signed(DATA1) * $unsigned(DATA2);
-    assign INNER_BUS_MULHU = $unsigned(DATA1) * $unsigned(DATA2);
+    assign #4 INNER_BUS_MUL = DATA1 * DATA2;
+    assign #4 INNER_BUS_MULH = DATA1 * DATA2;
+    assign #4 INNER_BUS_MULHSU = $signed(DATA1) * $unsigned(DATA2);
+    assign #4 INNER_BUS_MULHU = $unsigned(DATA1) * $unsigned(DATA2);
     
     // Division instructions
-    assign INNER_BUS_DIV = $signed(DATA1) / $signed(DATA1);
-    assign INNER_BUS_DIVU = $unsigned(DATA1) / $unsigned(DATA2);
-    assign INNER_BUS_REM = $signed(DATA1) % $signed(DATA1);
-    assign INNER_BUS_REMU = $unsigned(DATA1) % $unsigned(DATA1);
+    assign #4 INNER_BUS_DIV = $signed(DATA1) / $signed(DATA1);
+    assign #4 INNER_BUS_DIVU = $unsigned(DATA1) / $unsigned(DATA2);
+    assign #4 INNER_BUS_REM = $signed(DATA1) % $signed(DATA1);
+    assign #4 INNER_BUS_REMU = $unsigned(DATA1) % $unsigned(DATA1);
 
     always @(*)
     begin
         case(SELECT)
+            5'b11111: RESULT = INNER_BUS_FORWARD,
             5'b00000: RESULT = INNER_BUS_ADD; 
             5'b00010: RESULT = INNER_BUS_SUB; 
             5'b00100: RESULT = INNER_BUS_SLL; 
@@ -96,7 +96,7 @@ module alu (DATA1, DATA2, RESULT, SELECT);
             5'b10001: RESULT = INNER_BUS_DIV; 
             5'b10101: RESULT = INNER_BUS_DIVU; 
             5'b11001: RESULT = INNER_BUS_REM; 
-            5'b11101: RESULT = INNER_BUS_REMU; 
+            5'b11101: RESULT = INNER_BUS_REMU;
                 
             default:  RESULT = 0 ;  
                                 
