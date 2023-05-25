@@ -77,8 +77,10 @@ def format_instruction(instruction, index):
                 tmp_split_3 = item.split('(')
                 tmp_split_3.reverse()
                 segmented_list.extend(tmp_split_3)
+
             elif item.isalpha():
                 segmented_list.append((label_position[tmp_item] - index - 1) * 4)
+
             else:
                 segmented_list.append(item)
 
@@ -149,39 +151,39 @@ def handle_instruction(separated_instruction):
     instruction_type = instruction_data[separated_instruction[0]]['type']
 
     if instruction_type == "R-Type":
-        print("R type: ")
+        # print("R type: ")
         instruction = f"{instruction_data[separated_instruction[0]]['funct7']}{to_bin(5, separated_instruction[3])}{to_bin(5, separated_instruction[2])}{instruction_data[separated_instruction[0]]['funct3']}{to_bin(5, separated_instruction[1])}{instruction_data[separated_instruction[0]]['opcode']}"
     
     elif instruction_type == "I - Type ":
-        print("I type: ")
-        print(f"{to_bin(12, separated_instruction[3])}")
-        print(f"{separated_instruction[3]}")
-        print(f"{instruction_data[separated_instruction[0]]['funct3']}")
+        # print("I type: ")
+        # print(f"{to_bin(12, separated_instruction[3])}")
+        # print(f"{separated_instruction[3]}")
+        # print(f"{instruction_data[separated_instruction[0]]['funct3']}")
         instruction = f"{to_bin(12, separated_instruction[3])}{to_bin(5, separated_instruction[2])}{instruction_data[separated_instruction[0]]['funct3']}{to_bin(5, separated_instruction[1])}{instruction_data[separated_instruction[0]]['opcode']}"
 
     elif instruction_type == "S-Type":
-        print("S-Type instruction")
+        # print("S-Type instruction")
         immediate = to_bin(12, separated_instruction[3])
         instruction = f"{immediate[:7]}{to_bin(5, separated_instruction[1])}{to_bin(5, separated_instruction[2])}{instruction_data[separated_instruction[0]]['funct3']}{immediate[7:]}{instruction_data[separated_instruction[0]]['opcode']}"
 
     elif instruction_type == "B-Type":
-        print("B Type")
+        # print("B Type")
         immediate = to_bin(13, separated_instruction[3])
         instruction = f"{immediate[0]}{immediate[2:8]}{to_bin(5, separated_instruction[2])}{to_bin(5, separated_instruction[1])}{instruction_data[separated_instruction[0]]['funct3']}{immediate[8:12]}{immediate[1]}{instruction_data[separated_instruction[0]]['opcode']}"
 
     elif instruction_type == "U -Type":
-        print("U type")
+        # print("U type")
         immediate = to_bin(32, separated_instruction[2])
         instruction = f"{immediate[0:20]}{to_bin(5, separated_instruction[1])}{instruction_data[separated_instruction[0]]['opcode']}"
 
     elif instruction_type == "J-Type":
-        print("J type")
+        # print("J type")
         immediate = to_bin(21, separated_instruction[2])
-        print(separated_instruction)
+        # print(separated_instruction)
         instruction = f"{immediate[0]}{immediate[10:20]}{immediate[9]}{immediate[1:9]}{to_bin(5, separated_instruction[1])}{instruction_data[separated_instruction[0]]['opcode']}"
 
     elif instruction_type == "NOP-type":
-        print("NOP-type instruction")
+        # print("NOP-type instruction")
         instruction = "0" * 32
 
     # instruction = "{:032b}".format(int(instruction, 2))   
