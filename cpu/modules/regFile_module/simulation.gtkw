@@ -1,0 +1,119 @@
+[*]
+[*] GTKWave Analyzer v3.3.114 (w)1999-2023 BSI
+[*] Sun Jun  4 10:18:52 2023
+[*]
+[dumpfile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/regFile_module/simulation.vcd"
+[dumpfile_mtime] "Sun Jun  4 10:18:20 2023"
+[dumpfile_size] 6118
+[savefile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/regFile_module/simulation.gtkw"
+[timestart] 0
+[size] 1920 969
+[pos] 71 65
+*-3.002221 6 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reg_file_tb.
+[sst_width] 245
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 239
+@24
+[color] 1
+reg_file_tb.CLK
+@29
+reg_file_tb.RESET
+@24
+[color] 1
+reg_file_tb.run_test.write
+@200
+-
+@24
+[color] 3
+reg_file_tb.INADDRESS[4:0]
+[color] 3
+reg_file_tb.IN[31:0]
+@200
+-
+@24
+[color] 2
+reg_file_tb.OUT1ADDRESS[4:0]
+[color] 2
+reg_file_tb.OUT1[31:0]
+[color] 2
+reg_file_tb.run_test.expected_out1[31:0]
+@200
+-
+@24
+[color] 4
+reg_file_tb.OUT2ADDRESS[4:0]
+[color] 4
+reg_file_tb.OUT2[31:0]
+[color] 4
+reg_file_tb.run_test.expected_out2[31:0]
+@200
+-
+@24
+[color] 7
+reg_file_tb.dut.\REGISTER[0][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[1][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[2][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[3][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[4][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[5][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[6][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[7][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[8][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[9][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[10][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[11][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[12][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[13][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[14][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[15][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[16][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[17][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[18][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[19][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[20][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[21][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[22][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[23][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[24][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[25][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[26][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[27][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[28][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[29][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[30][31:0]
+[color] 7
+reg_file_tb.dut.\REGISTER[31][31:0]
+[pattern_trace] 1
+[pattern_trace] 0
