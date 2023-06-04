@@ -1,0 +1,76 @@
+[*]
+[*] GTKWave Analyzer v3.3.114 (w)1999-2023 BSI
+[*] Sun Jun  4 08:13:24 2023
+[*]
+[dumpfile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/alu_module/simulation.vcd"
+[dumpfile_mtime] "Sun Jun  4 08:12:08 2023"
+[dumpfile_size] 7591
+[savefile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/alu_module/simulation.gtkw"
+[timestart] 0
+[size] 1920 969
+[pos] 35 32
+*-3.801627 8 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] alu_tb.
+[sst_width] 245
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 239
+@24
+alu_tb.ALU_OP[4:0]
+@200
+-
+@24
+[color] 5
+alu_tb.DATA1[31:0]
+[color] 5
+alu_tb.DATA2[31:0]
+@200
+-
+@24
+[color] 3
+alu_tb.RESULT[31:0]
+@c00025
+[color] 3
+alu_tb.run_test.expected_result[31:0]
+@28
+(0)alu_tb.run_test.expected_result[31:0]
+(1)alu_tb.run_test.expected_result[31:0]
+(2)alu_tb.run_test.expected_result[31:0]
+(3)alu_tb.run_test.expected_result[31:0]
+(4)alu_tb.run_test.expected_result[31:0]
+(5)alu_tb.run_test.expected_result[31:0]
+(6)alu_tb.run_test.expected_result[31:0]
+(7)alu_tb.run_test.expected_result[31:0]
+(8)alu_tb.run_test.expected_result[31:0]
+(9)alu_tb.run_test.expected_result[31:0]
+(10)alu_tb.run_test.expected_result[31:0]
+(11)alu_tb.run_test.expected_result[31:0]
+(12)alu_tb.run_test.expected_result[31:0]
+(13)alu_tb.run_test.expected_result[31:0]
+(14)alu_tb.run_test.expected_result[31:0]
+(15)alu_tb.run_test.expected_result[31:0]
+(16)alu_tb.run_test.expected_result[31:0]
+(17)alu_tb.run_test.expected_result[31:0]
+(18)alu_tb.run_test.expected_result[31:0]
+(19)alu_tb.run_test.expected_result[31:0]
+(20)alu_tb.run_test.expected_result[31:0]
+(21)alu_tb.run_test.expected_result[31:0]
+(22)alu_tb.run_test.expected_result[31:0]
+(23)alu_tb.run_test.expected_result[31:0]
+(24)alu_tb.run_test.expected_result[31:0]
+(25)alu_tb.run_test.expected_result[31:0]
+(26)alu_tb.run_test.expected_result[31:0]
+(27)alu_tb.run_test.expected_result[31:0]
+(28)alu_tb.run_test.expected_result[31:0]
+(29)alu_tb.run_test.expected_result[31:0]
+(30)alu_tb.run_test.expected_result[31:0]
+(31)alu_tb.run_test.expected_result[31:0]
+@1401201
+-group_end
+@200
+-
+@28
+[color] 1
+alu_tb.run_test.acceptable_output
+[pattern_trace] 1
+[pattern_trace] 0
