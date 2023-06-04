@@ -25,5 +25,5 @@ wave: simulation.vcd
 	$(WAVEFORM_VIEWER) simulation.gtkw
 
 clean:
-	rm -f $(TARGET) simulation.vcd
+	rm -f *.vvp *.vcd *.v.out
 
