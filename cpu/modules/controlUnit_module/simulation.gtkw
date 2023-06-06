@@ -1,0 +1,130 @@
+[*]
+[*] GTKWave Analyzer v3.3.114 (w)1999-2023 BSI
+[*] Mon Jun  5 19:24:11 2023
+[*]
+[dumpfile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/controlUnit_module/simulation.vcd"
+[dumpfile_mtime] "Mon Jun  5 19:22:47 2023"
+[dumpfile_size] 1801
+[savefile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/controlUnit_module/simulation.gtkw"
+[timestart] 0
+[size] 1920 969
+[pos] 71 65
+*-2.049596 6 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] control_unit_tb.
+[sst_width] 245
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 239
+@c00028
+[color] 7
+control_unit_tb.INSTRUCTION[31:0]
+@28
+(0)control_unit_tb.INSTRUCTION[31:0]
+(1)control_unit_tb.INSTRUCTION[31:0]
+(2)control_unit_tb.INSTRUCTION[31:0]
+(3)control_unit_tb.INSTRUCTION[31:0]
+(4)control_unit_tb.INSTRUCTION[31:0]
+(5)control_unit_tb.INSTRUCTION[31:0]
+(6)control_unit_tb.INSTRUCTION[31:0]
+(7)control_unit_tb.INSTRUCTION[31:0]
+(8)control_unit_tb.INSTRUCTION[31:0]
+(9)control_unit_tb.INSTRUCTION[31:0]
+(10)control_unit_tb.INSTRUCTION[31:0]
+(11)control_unit_tb.INSTRUCTION[31:0]
+(12)control_unit_tb.INSTRUCTION[31:0]
+(13)control_unit_tb.INSTRUCTION[31:0]
+(14)control_unit_tb.INSTRUCTION[31:0]
+(15)control_unit_tb.INSTRUCTION[31:0]
+(16)control_unit_tb.INSTRUCTION[31:0]
+(17)control_unit_tb.INSTRUCTION[31:0]
+(18)control_unit_tb.INSTRUCTION[31:0]
+(19)control_unit_tb.INSTRUCTION[31:0]
+(20)control_unit_tb.INSTRUCTION[31:0]
+(21)control_unit_tb.INSTRUCTION[31:0]
+(22)control_unit_tb.INSTRUCTION[31:0]
+(23)control_unit_tb.INSTRUCTION[31:0]
+(24)control_unit_tb.INSTRUCTION[31:0]
+(25)control_unit_tb.INSTRUCTION[31:0]
+(26)control_unit_tb.INSTRUCTION[31:0]
+(27)control_unit_tb.INSTRUCTION[31:0]
+(28)control_unit_tb.INSTRUCTION[31:0]
+(29)control_unit_tb.INSTRUCTION[31:0]
+(30)control_unit_tb.INSTRUCTION[31:0]
+(31)control_unit_tb.INSTRUCTION[31:0]
+@1401200
+-group_end
+@200
+-
+@28
+[color] 4
+control_unit_tb.UUT.opcode[6:0]
+[color] 4
+control_unit_tb.UUT.funct3[2:0]
+[color] 4
+control_unit_tb.UUT.funct7[6:0]
+@200
+-
+@28
+[color] 2
+control_unit_tb.UUT.OP1_SEL
+[color] 2
+control_unit_tb.run_test.expected_op1_sel
+@200
+-
+@28
+[color] 5
+control_unit_tb.UUT.OP2_SEL
+[color] 5
+control_unit_tb.run_test.expected_op2_sel
+@200
+-
+@28
+[color] 1
+control_unit_tb.UUT.REG_WRITE_EN
+@29
+[color] 1
+control_unit_tb.run_test.expected_reg_write_en
+@200
+-
+@28
+[color] 7
+control_unit_tb.UUT.IMM_SEL[2:0]
+[color] 7
+control_unit_tb.run_test.expected_imm_sel[2:0]
+@200
+-
+@28
+[color] 3
+control_unit_tb.UUT.BR_SEL[3:0]
+[color] 3
+control_unit_tb.run_test.expected_br_sel[3:0]
+@200
+-
+@28
+[color] 5
+control_unit_tb.UUT.ALU_OP[4:0]
+[color] 5
+control_unit_tb.run_test.expected_alu_op[4:0]
+@200
+-
+@28
+[color] 2
+control_unit_tb.UUT.MEM_WRITE[2:0]
+[color] 2
+control_unit_tb.run_test.expected_mem_write[2:0]
+@200
+-
+@28
+[color] 7
+control_unit_tb.UUT.MEM_READ[3:0]
+[color] 7
+control_unit_tb.run_test.expected_mem_read[3:0]
+@200
+-
+@28
+[color] 3
+control_unit_tb.UUT.REG_WRITE_SEL[1:0]
+[color] 3
+control_unit_tb.run_test.expected_reg_write_sel[1:0]
+[pattern_trace] 1
+[pattern_trace] 0

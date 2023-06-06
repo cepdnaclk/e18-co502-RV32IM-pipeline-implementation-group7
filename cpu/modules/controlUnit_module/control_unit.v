@@ -1,4 +1,4 @@
-module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL, ALU_OP, MEM_WRITE, MEM_READ, REG_WRITE_SEL);
+module control_unit(INSTRUCTION, RESET, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL, ALU_OP, MEM_WRITE, MEM_READ, REG_WRITE_SEL);
 	// Begin port declaration
 	// Inputs	
 	input [31:0] INSTRUCTION;
@@ -73,14 +73,14 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
     */
 
-    assign #3 IMM_SEL[2:0] =   (opcode == 7'b0010011) ? 3'b000 : // I-type (ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI)
-                            (opcode == 7'b0000011) ? 3'b000 : // I-type (LB, LH, LW, LBU, LHU)
-                            (opcode == 7'b1100111) ? 3'b000 : // I-type (JALR)
-                            (opcode == 7'b0100011) ? 3'b001 : // S-type (SB, SH, SW)
-                            (opcode == 7'b1100011) ? 3'b010 : // SB-type (BEQ, BNE, BLT, BGE, BLTU, BGEU)
-                            (opcode == 7'b0110111) ? 3'b011 : // U-type (LUI)
-                            (opcode == 7'b0010111) ? 3'b011 : // U-type (AUIPC)
-                            (opcode == 7'b1101111) ? 3'b100 : 3'bxxx ; // UJ-type (JAL)
+    assign #3 IMM_SEL[2:0] =    (opcode == 7'b0010011) ? 3'b000 : // I-type (ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI)
+                                (opcode == 7'b0000011) ? 3'b000 : // I-type (LB, LH, LW, LBU, LHU)
+                                (opcode == 7'b1100111) ? 3'b000 : // I-type (JALR)
+                                (opcode == 7'b0100011) ? 3'b001 : // S-type (SB, SH, SW)
+                                (opcode == 7'b1100011) ? 3'b010 : // SB-type (BEQ, BNE, BLT, BGE, BLTU, BGEU)
+                                (opcode == 7'b0110111) ? 3'b011 : // U-type (LUI)
+                                (opcode == 7'b0010111) ? 3'b011 : // U-type (AUIPC)
+                                (opcode == 7'b1101111) ? 3'b100 : 3'bxxx ; // UJ-type (JAL)
 
 
     /* 
@@ -102,40 +102,45 @@ module control_unit(INSTRUCTION, OP1_SEL, OP2_SEL, REG_WRITE_EN, IMM_SEL, BR_SEL
 
                     instructions
     */
-    assign #3 ALU_OP[4:0] =     ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000000}) ? 5'b00000 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0100000}) ? 5'b00010 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000000}) ? 5'b00100 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000000}) ? 5'b01000 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) ? 5'b01100 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000000}) ? 5'b10000 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000000}) ? 5'b10100 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) ? 5'b10110 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000000}) ? 5'b11000 :
-                                ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000000}) ? 5'b11100 :
-                                ({opcode, funct3} == {7'b0110011, 3'b000}) ? 5'b00001 :
-                                ({opcode, funct3} == {7'b0110011, 3'b001}) ? 5'b00101 :
-                                ({opcode, funct3} == {7'b0110011, 3'b010}) ? 5'b01101 :
-                                ({opcode, funct3} == {7'b0110011, 3'b011}) ? 5'b01001 :
-                                ({opcode, funct3} == {7'b0110011, 3'b100}) ? 5'b10001 :
-                                ({opcode, funct3} == {7'b0110011, 3'b101}) ? 5'b10101 :
-                                ({opcode, funct3} == {7'b0110011, 3'b110}) ? 5'b11001 :
-                                ({opcode, funct3} == {7'b0110011, 3'b111}) ? 5'b11101 :
-                                ({opcode} == {7'b0000011}) ? 5'b00000 : // loads
-                                ({opcode} == {7'b0100011}) ? 5'b00000 : // store type
-                                ({opcode} == {7'b1100011}) ? 5'b00000 : // conditional brnach type
-                                ({opcode} == {7'b0010111}) ? 5'b00000 : // Auipc
-                                ({opcode} == {7'b1101111}) ? 5'b00000 : // JAL
-                                ({opcode} == {7'b1100111}) ? 5'b00000 : // JALR
-                                ({opcode} == {7'b0110111}) ? 5'b11111 : // LUI
-                                ({opcode, funct3} == {7'b0010011, 3'b000}) ? 5'b00000 :
-                                ({opcode, funct3} == {7'b0010011, 3'b010}) ? 5'b01000 :
-                                ({opcode, funct3} == {7'b0010011, 3'b011}) ? 5'b01100 :
-                                ({opcode, funct3} == {7'b0010011, 3'b100}) ? 5'b10000 :
-                                ({opcode, funct3} == {7'b0010011, 3'b110}) ? 5'b11000 :
-                                ({opcode, funct3} == {7'b0010011, 3'b111}) ? 5'b11100 :
-                                ({opcode, funct3, funct7} == {7'b0010011, 3'b001, 7'b0000000}) ? 5'b00100 :
-                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0000000}) ? 5'b10100 :
-                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) ? 5'b10110 : 5'bxxxxx;
+    assign #3 ALU_OP[4:0] =     ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000000}) ? 5'b00000 : // add
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0100000}) ? 5'b00010 : // sub
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000000}) ? 5'b00100 : // sll
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000000}) ? 5'b01000 : // slt
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000000}) ? 5'b01100 : // sltu
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000000}) ? 5'b10000 : // xor
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000000}) ? 5'b10100 : // srl
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0100000}) ? 5'b10110 : // sra
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000000}) ? 5'b11000 : // or
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000000}) ? 5'b11100 : // and
+
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b000, 7'b0000001}) ? 5'b00001 : // mul
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b001, 7'b0000001}) ? 5'b00101 : // mulh
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b010, 7'b0000001}) ? 5'b01101 : // mulhsu
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b011, 7'b0000001}) ? 5'b01001 : // mulhu
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b100, 7'b0000001}) ? 5'b10001 : // div
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b101, 7'b0000001}) ? 5'b10101 : // divu
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b110, 7'b0000001}) ? 5'b11001 : // rem
+                                ({opcode, funct3, funct7} == {7'b0110011, 3'b111, 7'b0000001}) ? 5'b11101 : // remu
+
+                                ({opcode} == {7'b0000011}) ? 5'b00000 : // loads - add
+                                ({opcode} == {7'b0100011}) ? 5'b00000 : // store type - add
+                                ({opcode} == {7'b1100011}) ? 5'b00010 : // conditional brnach type - sub
+                                ({opcode} == {7'b0010111}) ? 5'b00000 : // Auipc - add
+                                ({opcode} == {7'b1101111}) ? 5'b00000 : // JAL - add
+                                ({opcode} == {7'b1100111}) ? 5'b00000 : // JALR - add
+                                ({opcode} == {7'b0110111}) ? 5'b11111 : // LUI - forward
+
+                                ({opcode, funct3} == {7'b0010011, 3'b000}) ? 5'b00000 : // addi = add
+                                ({opcode, funct3} == {7'b0010011, 3'b010}) ? 5'b01000 : // slti - slt
+                                ({opcode, funct3} == {7'b0010011, 3'b011}) ? 5'b01100 : // sltiu - sltu
+                                ({opcode, funct3} == {7'b0010011, 3'b100}) ? 5'b10000 : // sori - xor
+                                ({opcode, funct3} == {7'b0010011, 3'b110}) ? 5'b11000 : // ori - or
+                                ({opcode, funct3} == {7'b0010011, 3'b111}) ? 5'b11100 : // andi - and
+                                
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b001, 7'b0000000}) ? 5'b00100 : // slli - sll
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0000000}) ? 5'b10100 : // srli - srl
+                                ({opcode, funct3, funct7} == {7'b0010011, 3'b101, 7'b0100000}) ? 5'b10110 : // srai - sra
+                                (5'bxxxxx); 
 
 
 
