@@ -1,4 +1,6 @@
+___
 # Control Unit Module
+___
 
 This module is a control unit implementation in Verilog. It decodes instructions and generates control signals for the different components of a processor. The module is designed to support the RV32IM instruction set architecture.
 
@@ -41,6 +43,8 @@ The Control Unit module performs the following tasks:
 
 7. Memory Write Control: The module generates the memory write control signals (`MEM_WRITE[2:0]`) based on the opcode and funct3 values.
 
+For detailed information on control signal generation, please refer to the comprehensive resource available at [Link to Control Signal Generation](https://docs.google.com/spreadsheets/d/1K9gt_AwSM0HnBRXhNPUdeiYKkfeESjKUCMTwpHl1A9w/edit?usp=sharing). This resource provides an in-depth analysis of the generation of control signals according to the instruction.
+
 ## Usage
 
 ### Prerequisites
@@ -56,7 +60,7 @@ The Control Unit module performs the following tasks:
 git clone git@github.com:cepdnaclk/e18-co502-RV32IM-pipeline-implementation-group7.git
 ```
 
-2. Navigate to the repository directory.
+2. Navigate to the module directory.
 
 ```shell
 cd e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/controlUnit_module
