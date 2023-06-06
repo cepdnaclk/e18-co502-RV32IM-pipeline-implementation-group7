@@ -1,4 +1,6 @@
+___
 # ALU Module
+___
 
 This module contains an Arithmetic Logic Unit (ALU) module implemented in Verilog. The ALU supports the RV32IM instruction set architecture.
 
@@ -43,7 +45,7 @@ The module takes two 32-bit data inputs (DATA1 and DATA2) and a 5-bit control si
 git clone git@github.com:cepdnaclk/e18-co502-RV32IM-pipeline-implementation-group7.git
 ```
 
-2. Navigate to the repository directory.
+2. Navigate to the module directory.
 
 ```shell
 cd e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/alu_module
