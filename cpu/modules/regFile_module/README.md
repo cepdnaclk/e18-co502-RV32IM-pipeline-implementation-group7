@@ -1,4 +1,6 @@
-# Reg File Module
+___
+# Register File Module
+___
 
 This module is a register file implementation in Verilog. It provides an 32x32-bit register file that supports read and write operations for RV32IM instruction set architecture.
 
@@ -27,7 +29,7 @@ The Register file consists of a register array and control logic to enable read 
 git clone git@github.com:cepdnaclk/e18-co502-RV32IM-pipeline-implementation-group7.git
 ```
 
-2. Navigate to the repository directory.
+2. Navigate to the module directory.
 
 ```shell
 cd e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/regFile_module
@@ -64,4 +66,4 @@ GTKWave will open with the configured waveform displayed.
 
 ### Testbench
 
-The eg_file_tb.v file contains a testbench for the reg_file module. It includes test cases for various instructions. You can modify or add test cases as needed.
+The reg_file_tb.v file contains a testbench for the reg_file module. It includes test cases for various instructions. You can modify or add test cases as needed.
