@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.114 (w)1999-2023 BSI
+[*] Thu Jun  8 15:26:46 2023
+[*]
+[dumpfile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/ImmediateEncoder_module/simulation.vcd"
+[dumpfile_mtime] "Thu Jun  8 15:26:00 2023"
+[dumpfile_size] 1500
+[savefile] "/home/dhana/Documents/academic/6th/CO502/e18-co502-RV32IM-pipeline-implementation-group7/cpu/modules/ImmediateEncoder_module/simulation.gtkw"
+[timestart] 0
+[size] 1920 969
+[pos] 35 32
+*-2.121306 8 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] Immediate_encoder_tb.
+[sst_width] 245
+[signals_width] 222
+[sst_expanded] 1
+[sst_vpaned_height] 261
+@22
+Immediate_encoder_tb.INSTRUCTION[31:0]
+@28
+Immediate_encoder_tb.IMM_SEL[2:0]
+@200
+-
+@22
+[color] 2
+Immediate_encoder_tb.run_test.expected_immediate[31:0]
+@23
+[color] 2
+Immediate_encoder_tb.IMMEDIATE[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
