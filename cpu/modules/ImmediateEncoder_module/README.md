@@ -76,4 +76,4 @@ GTKWave will open with the configured waveform displayed.
 
 ### Testbench
 
-The reg_file_tb.v file contains a testbench for the reg_file module. It includes test cases for various instructions. You can modify or add test cases as needed.
+The Immediate_encoder_tb.v file contains a testbench for the Immediate_encoder module. It includes test cases for various instructions. You can modify or add test cases as needed.
