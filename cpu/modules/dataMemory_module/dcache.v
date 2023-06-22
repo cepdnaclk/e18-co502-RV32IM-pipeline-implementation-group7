@@ -1,5 +1,3 @@
-`timescale 1ns/100ps
-
 module data_cache_memory(
     input				CLK,
     input           	RESET,
