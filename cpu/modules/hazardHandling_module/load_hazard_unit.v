@@ -1,5 +1,3 @@
-`timescale  1ns/100ps
-
 module Load_use_hazard_unit (
     input CLK,
     input RESET,

@@ -1,5 +1,3 @@
-`timescale  1ns/100ps
-
 module Branch_hazard_unit (
     input [2:0] ID_pc,
     input [2:0] ALU_pc,

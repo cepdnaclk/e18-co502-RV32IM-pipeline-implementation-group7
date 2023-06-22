@@ -1,5 +1,3 @@
-`timescale 1ns/100ps
-
 module ins_cache_memory (
     input                   clock,
     input                   reset,
